@@ -6,20 +6,36 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="start-screen">
+
+<!-- Стартовый экран -->
+<div id="start-screen" class="full-screen">
     <div class="start-content">
         <h1>Das Date</h1>
-        <p>Ein interaktives Abenteuer mit Jana. Triff deine Entscheidungen  aber sei vorsichtig mit deinen Worten.</p>
-        <button onclick="startGame()">Start</button>
+        <p>Ein interaktives Abenteuer mit Jana. Triff deine Entscheidungen – aber sei vorsichtig mit deinen Worten.</p>
+        <button id="start-button">Start</button>
     </div>
 </div>
 
-<div id="game-container" class="container" style="display: none;">
+<!-- Основная игра -->
+<div id="game-container" class="full-screen" style="display: none;">
     <img id="scene-image" src="" alt="Szene">
     <p id="scene-text"></p>
     <div id="choices"></div>
 </div>
 
-<script src="script.js"></script>
+<!-- Экран, если не пришёл -->
+<div id="missed-screen" class="full-screen" style="display: none;">
+    <div class="start-content">
+        <h1>Du bist nicht gekommen</h1>
+        <p>Jana hat lange auf dich gewartet. Vielleicht beim nächsten Mal.</p>
+        <button id="return-button">Zurück zur Startseite</button>
+    </div>
+</div>
+
+<!-- Подключение JavaScript-файлов -->
+<script src="scenes.js"></script>
+<script src="engine.js"></script>
+<script src="ui.js"></script>
+
 </body>
 </html>
