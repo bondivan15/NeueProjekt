@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<!-- Стартовый экран -->
+<!-- Стартовий екран -->
 <div id="start-screen" class="full-screen">
     <div class="start-content">
         <h1>Das Date</h1>
@@ -16,14 +16,14 @@
     </div>
 </div>
 
-<!-- Основная игра -->
+<!-- Основна гра -->
 <div id="game-container" class="full-screen" style="display: none;">
     <img id="scene-image" src="" alt="Szene">
     <p id="scene-text"></p>
     <div id="choices"></div>
 </div>
 
-<!-- Экран, если не пришёл -->
+<!-- Якщо гравець не прийшов -->
 <div id="missed-screen" class="full-screen" style="display: none;">
     <div class="start-content">
         <h1>Du bist nicht gekommen</h1>
@@ -32,7 +32,18 @@
     </div>
 </div>
 
-<!-- Подключение JavaScript-файлов -->
+<!-- Вибір подарка -->
+<div id="gift-screen" class="full-screen" style="display: none;">
+    <div class="gift-content">
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <button id="gift-left">←</button>
+            <img id="gift-image" src="bilder/gift1.png" alt="Geschenk" />
+            <button id="gift-right">→</button>
+        </div>
+        <button id="gift-choose">Geschenk überreichen</button>
+    </div>
+</div>
+
 <script src="scenes.js"></script>
 <script src="engine.js"></script>
 <script src="ui.js"></script>

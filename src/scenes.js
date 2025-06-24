@@ -1,4 +1,3 @@
-// scenes.js
 const scenes = [
     {
         image: "Frau-sitzt-allein.png",
@@ -9,7 +8,7 @@ const scenes = [
         ]
     },
     {
-        image: "Freundliche-Frau(1).png",
+        image: "FreundlicheFrauMitLeerTisch.png",
         text: "Jana lächelt. Ich habe schon gedacht, du kommst nicht?",
         choices: [
             { text: "Ich hätte dich doch nie versetzt", nextScene: 2 },
@@ -117,13 +116,105 @@ const scenes = [
             { text: "Zurück zur Startseite", nextScene: 0 }
         ]
     },
-    // ... сцены 15–28 можно расширить аналогично
     {
         image: "Freundliche-Frau.png",
         text: "Letzte Szene: Ihr verlasst das Café und sie schaut dich noch einmal an. Wie beendest du das Date?",
         choices: [
             { text: "Mit einer herzlichen Umarmung", nextScene: 13 },
             { text: "Mit einem Witz und einem Lächeln", nextScene: 13 }
+        ]
+    },
+    {
+        image: "Frau-zahlt.png",
+        text: "Der Kellner bringt die Rechnung. Jana schaut dich an.",
+        choices: [
+            { text: "Ich übernehme das gerne.", nextScene: 18 },
+            { text: "Wollen wir teilen?", nextScene: 19 }
+        ]
+    },
+    {
+        image: "Lächelnde-Frau.png",
+        text: "Sie lächelt. Das ist sehr höflich von dir.",
+        choices: [
+            { text: "Ein Gentleman verschwindet nie.", nextScene: 20 },
+            { text: "Ich finde, das gehört sich so.", nextScene: 20 }
+        ]
+    },
+    {
+        image: "Neutrale-Frau.png",
+        text: "Sie nickt langsam. Okay, wie du meinst.",
+        choices: [
+            { text: "Ich meinte das nicht böse.", nextScene: 20 },
+            { text: "Gleichberechtigung oder?", nextScene: 6 }
+        ]
+    },
+    {
+        image: "Draußen-lächelnd.png",
+        text: "Ihr steht draußen. Es ist etwas kühl.",
+        choices: [
+            { text: "Deine Jacke anbieten", nextScene: 21 },
+            { text: "Fragen: Sollen wir noch spazieren?", nextScene: 22 }
+        ]
+    },
+    {
+        image: "Dankbare-Frau.png",
+        text: "Danke, das ist lieb von dir.",
+        choices: [
+            { text: "Du bist es wert.", nextScene: 23 },
+            { text: "Ich bin halt ein Klassiker.", nextScene: 23 }
+        ]
+    },
+    {
+        image: "Spaziergang.png",
+        text: "Ihr geht ein paar Schritte gemeinsam.",
+        choices: [
+            { text: "Hand nehmen", nextScene: 24 },
+            { text: "Über die Sterne reden", nextScene: 25 }
+        ]
+    },
+    {
+        image: "Berührte-Frau.png",
+        text: "Sie lässt es zu. Das fühlt sich gut an.",
+        choices: [
+            { text: "Ich wollte diesen Moment.", nextScene: 26 },
+            { text: "Schön, dass du da bist.", nextScene: 26 }
+        ]
+    },
+    {
+        image: "Sterne.png",
+        text: "Sie schaut nach oben. Magisch.",
+        choices: [
+            { text: "Du bist schöner als der Himmel.", nextScene: 26 },
+            { text: "Ich wünschte, dieser Moment bleibt.", nextScene: 26 }
+        ]
+    },
+    {
+        image: "Lächelnde-Frau.png",
+        text: "Sie schaut dich ruhig an.",
+        choices: [
+            { text: "Darf ich dich küssen?", nextScene: 27 },
+            { text: "Ich will dich nicht überrumpeln.", nextScene: 28 }
+        ]
+    },
+    {
+        image: "Kuss.png",
+        text: "Ihr küsst euch zärtlich. Ein perfekter Moment.",
+        choices: [
+            { text: "Ende mit einem Kuss", nextScene: 14 }
+        ]
+    },
+    {
+        image: "Verabschiedung.png",
+        text: "Sie umarmt dich sanft. Es war schön heute.",
+        choices: [
+            { text: "Bis bald, Jana", nextScene: 14 }
+        ]
+    },
+    {
+        image: "Leer.png",
+        text: "Du hast Jana sitzen lassen. Vielleicht beim nächsten Mal",
+        choices: [
+            { text: "Zurück zur Startseite", nextScene: 0 }
         ]
     }
 ];

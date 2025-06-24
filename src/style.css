@@ -112,3 +112,32 @@ html, body {
 #choices button:hover {
     background-color: rgba(160, 160, 160, 0.8);
 }
+.gift-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.gift-content img {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.gift-content button {
+    font-size: 20px;
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.gift-content button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}

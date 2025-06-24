@@ -1,4 +1,5 @@
 // engine.js
+
 let currentScene = 0;
 let badStreak = 0;
 
@@ -10,9 +11,17 @@ function startGame() {
 }
 
 function returnToStart() {
-    document.getElementById("start-screen").style.display = "block";
-    document.getElementById("game-container").style.display = "none";
-    document.getElementById("missed-screen").style.display = "none";
+    const startScreen = document.getElementById("start-screen");
+    const gameContainer = document.getElementById("game-container");
+    const missedScreen = document.getElementById("missed-screen");
+
+    startScreen.style.display = "flex";
+    gameContainer.style.display = "none";
+    missedScreen.style.display = "none";
+
+    window.scrollTo(0, 0);
+    startScreen.className = "full-screen";
+
     currentScene = 0;
     badStreak = 0;
 }
@@ -22,8 +31,13 @@ function choose(choiceIndex) {
     const choice = scene.choices[choiceIndex];
     const next = choice?.nextScene;
 
-    const isNegative = choice.text.includes("nicht") || choice.text.includes("trotzdem") || choice.text.includes("Zeit") || choice.text.includes("Wasser") || choice.text.includes("anders") || choice.text.includes("verschwende");
-    const isPositive = choice.text.includes("freut") || choice.text.includes("lächelt") || choice.text.includes("Geschenk") || choice.text.includes("gern") || choice.text.includes("mag") || choice.text.includes("sehen wir uns wieder") || choice.text.includes("verdient");
+    const isNegative = choice.text.includes("nicht") || choice.text.includes("trotzdem") || choice.text.includes("Zeit") || choice.text.includes("Wasser") || choice.text.includes("anders") || choice.text.includes("verschwende") || choice.text.includes("teilen") || choice.text.includes("Gleichberechtigung");
+    const isPositive = choice.text.includes("freut") || choice.text.includes("lächelt") || choice.text.includes("Geschenk") || choice.text.includes("gern") || choice.text.includes("mag") || choice.text.includes("sehen wir uns wieder") || choice.text.includes("verdient") || choice.text.includes("Danke") || choice.text.includes("Kuss") || choice.text.includes("Umarmung");
+
+    if (choice.text.includes("Geschenk")) {
+        showGiftScreen();
+        return;
+    }
 
     if (isNegative) {
         badStreak++;
@@ -91,3 +105,42 @@ function updateScene() {
 
     typeWriter();
 }
+
+// --- Выбор подарка ---
+const gifts = ["gift1.png", "gift2.png", "gift3.png"];
+let currentGift = 0;
+
+function showGiftScreen() {
+    document.getElementById("game-container").style.display = "none";
+    document.getElementById("gift-screen").style.display = "flex";
+    updateGiftImage();
+}
+
+function updateGiftImage() {
+    document.getElementById("gift-image").src = "bilder/" + gifts[currentGift];
+}
+
+document.getElementById("gift-left").onclick = () => {
+    currentGift = (currentGift + gifts.length - 1) % gifts.length;
+    updateGiftImage();
+};
+
+document.getElementById("gift-right").onclick = () => {
+    currentGift = (currentGift + 1) % gifts.length;
+    updateGiftImage();
+};
+
+document.getElementById("gift-choose").onclick = () => {
+    document.getElementById("gift-screen").style.display = "none";
+    document.getElementById("game-container").style.display = "block";
+
+    if (currentGift === 0) {
+        currentScene = 12; // хороший подарок
+    } else if (currentGift === 1) {
+        currentScene = 13; // нейтрально
+    } else {
+        currentScene = 6;  // плохой подарок — уходит
+    }
+
+    updateScene();
+};
