@@ -79,7 +79,7 @@ function updateScene() {
 const scenes = [
     {
         image: "Frau-sitzt-allein.png",
-        text: "Du stehst vor dem Café. Jana wartet schon. Was machst du?",
+        text: "Du stehst vor dem Cafe. Jana wartet schon. Was machst du?",
         choices: [
             { text: "Du gehst hinein und setzt dich zu ihr", nextScene: 1 },
             { text: "Du gehst einfach nicht hinein", nextScene: 29 }
