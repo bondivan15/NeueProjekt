@@ -1,220 +1,338 @@
 const scenes = [
+    // Scene 0 - Start
     {
         image: "Frau-sitzt-allein.png",
-        text: "Du stehst vor dem Café? Jana wartet schon? Was machst du?",
+        text: "Jana wartet schon auf dich.",
         choices: [
-            { text: "Du gehst hinein und setzt dich zu ihr", nextScene: 1 },
-            { text: "Du gehst einfach nicht hinein", nextScene: 29 }
+            { text: "Mich an den Tisch setzen und ihr ein Kompliment machen", nextScene: 1 },
+            { text: "Nicht kommen", nextScene: 2 }
         ]
     },
+
+    // Scene 1 - Kompliment
     {
-        image: "FreundlicheFrauMitLeerTisch.png",
-        text: "Jana lächelt. Ich habe schon gedacht, du kommst nicht?",
+        image: "Freundliche-Frau.png",
+        text: "Hallo! Wie süß von dir!",
         choices: [
-            { text: "Ich hätte dich doch nie sitzen gelassen", nextScene: 2 },
-            { text: "Ich habe echt überlegt, ob ich komme", nextScene: 3 }
+            { text: "Fragen, wie ihr Tag war", nextScene: 3 },
+            { text: "Nichts sagen und den Kellner rufen", nextScene: 11 }
         ]
     },
+
+    // Scene 2 - Nicht gekommen
+    {
+        image: "Leer.png",
+        text: "Jana hat lange gewartet... aber du bist nie erschienen.",
+        choices: [
+            { text: "Neustart", nextScene: 0 }
+        ]
+    },
+
+    // Scene 3 - Nach Tag fragen
     {
         image: "Freundliche-Frau-mit-Kellner.png",
-        text: "Sie lacht. Na gut, du bist ja da",
+        text: "Gut! Sollen wir den Kellner rufen?",
         choices: [
-            { text: "Ein charmantes Kompliment machen", nextScene: 4 },
-            { text: "Fragen, wie ihr Tag war", nextScene: 5 }
+            { text: "Klar, mein Schatz", nextScene: 4 },
+            { text: "Bist du zufällig WLAN? Warum fühle ich dann so eine starke Verbindung?", nextScene: 17 }
         ]
     },
+
+    // Scene 4 - Bestellung
+    {
+        image: "Freundliche-Frau-mit-Kellner.png",
+        text: "Da ist er ja! Was möchtest du?",
+        choices: [
+            { text: "Ich vertraue deinem Geschmack!", nextScene: 5 },
+            { text: "Nur zwei Gläser Wasser bestellen", nextScene: 23 }
+        ]
+    },
+
+    // Scene 5 - Geschmack
+    {
+        image: "Freundliche-Frau-mit-Essen.png",
+        text: "Wie schmeckt es dir?",
+        choices: [
+            { text: "Absolut großartig! Voll ins Schwarze getroffen!", nextScene: 6 },
+            { text: "Ehrlich? Nicht besonders lecker...", nextScene: 28 }
+        ]
+    },
+
+    // Scene 6 - Rechnung
+    {
+        image: "Freundliche-Frau-mit-Rechnung.png",
+        text: "Hier ist schon die Rechnung!",
+        choices: [
+            { text: "Ich habe noch eine Überraschung für dich!", nextScene: 7 },
+            { text: "Zahlen wir getrennt?", nextScene: 32 }
+        ]
+    },
+
+    // Scene 7 - Geschenkauswahl
+    {
+        image: "gift-screen.png",
+        text: "",
+        choices: []
+    },
+
+    // Scene 8 - Nach dem Geschenk
+    {
+        image: "Freundliche-Frau-mit-Geschenk.png",
+        text: "Das war ein wundervoller Abend! Bringst du mich nach Hause?",
+        choices: [
+            { text: "Natürlich, Sonnenschein", nextScene: 9 },
+            { text: "Geh besser alleine", nextScene: 10 }
+        ]
+    },
+
+    // Scene 9 - Gutes Ende 1
+    {
+        image: "Happy-End.png",
+        text: "Ihr hattet einen perfekten Abend! Vielleicht wird aus dieser Bekanntschaft noch etwas Ernsteres...",
+        choices: [
+            { text: "Neustart", nextScene: 0 }
+        ]
+    },
+
+    // Scene 10 - Schlechtes Ende 1
+    {
+        image: "Enttäuschte-Frau.png",
+        text: "Jana wirkt verletzt. Sie versteht nicht, warum du sie nicht nach Hause bringen wolltest.",
+        choices: [
+            { text: "Neustart", nextScene: 0 }
+        ]
+    },
+
+    // Scene 11 - Nicht gesprochen
     {
         image: "mittel-Laune-Frau.png",
-        text: "Sie runzelt die Stirn. Aha. Ehrlich bist du zumindest",
+        text: "Du bist aber schweigsam heute...",
         choices: [
-            { text: "Ich bin halt nervös", nextScene: 4 },
-            { text: "Ich verschwende ungern Zeit", nextScene: 6 }
+            { text: "Entschuldige, hatte einen schlechten Tag", nextScene: 12 },
+            { text: "Das geht dich nichts an!", nextScene: 34 }
         ]
     },
-    {
-        image: "Freundliche-Frau.png",
-        text: "Sie lächelt. Du bist ja richtig süß, wenn du willst",
-        choices: [
-            { text: "Der Kellner kommt – etwas für euch beide bestellen", nextScene: 7 },
-            { text: "Fragen, was sie gerne essen möchte", nextScene: 7 }
-        ]
-    },
-    {
-        image: "Freundliche-Frau.png",
-        text: "Mein Tag war entspannt – aber ich hatte den Kopf voll mit diesem Treffen",
-        choices: [
-            { text: "Ich hab mich auch echt gefreut", nextScene: 4 },
-            { text: "Und trotzdem bist du gekommen?", nextScene: 6 }
-        ]
-    },
-    {
-        image: "Sehr-böse-Frau-mit-Essen.png",
-        text: "Jana schaut dich ernst an. STOPP! Hört das jetzt mal auf mit dem Unfreundlichen. Sie steht auf und geht",
-        choices: [
-            { text: "Neu starten", nextScene: 0 }
-        ]
-    },
-    {
-        image: "Frau-mit-Speisekarte.png",
-        text: "Der Kellner bringt die Speisekarten. Jana schaut dich erwartungsvoll an",
-        choices: [
-            { text: "Fragen: Was bestellst du? Ich nehme das gleiche", nextScene: 8 },
-            { text: "Einfach zwei Gläser Wasser bestellen", nextScene: 9 }
-        ]
-    },
-    {
-        image: "Freundliche-Frau.png",
-        text: "Oh, das ist süß. Ich hoffe, du magst Pasta",
-        choices: [
-            { text: "Lächeln und sagen: Klar – besonders mit dir", nextScene: 10 },
-            { text: "Fragen: Wenn du aussuchen könntest – Pizza oder Sushi?", nextScene: 11 }
-        ]
-    },
-    {
-        image: "ein-bisschen-böse-Frau-mit-Essen.png",
-        text: "Sie schaut irritiert. Nur Wasser? Wirklich?",
-        choices: [
-            { text: "Ich wollte dich überraschen mit einem Geschenk", nextScene: 12 },
-            { text: "Ich trink eh nie was anderes", nextScene: 6 }
-        ]
-    },
-    {
-        image: "Freundliche-Frau.png",
-        text: "Sie grinst. Du bist charmant. Gefährlich charmant",
-        choices: [
-            { text: "Dann brauchst du einen Talisman (gib ihr ein Geschenk)", nextScene: 12 },
-            { text: "Dann pass gut auf dich auf heute", nextScene: 13 }
-        ]
-    },
+
+    // Scene 12 - Entschuldigung
     {
         image: "Freundliche-Frau-mit-Kellner.png",
-        text: "Du gibst ihr ein kleines Geschenk. Ihre Augen leuchten",
+        text: "Passiert! Was möchtest du bestellen?",
         choices: [
-            { text: "Nur eine Kleinigkeit. Du hast’s verdient", nextScene: 13 },
-            { text: "Ein Date ohne Überraschung ist wie Pizza ohne Käse", nextScene: 13 }
+            { text: "Ich vertraue dir", nextScene: 13 },
+            { text: "Warum ist dieses Restaurant so teuer?", nextScene: 34 }
         ]
     },
+
+    // Scene 13 - Bewertung
+    {
+        image: "Freundliche-Frau-mit-Essen.png",
+        text: "Und? Wie ist es?",
+        choices: [
+            { text: "Mmmm, köstlich!", nextScene: 14 },
+            { text: "Meine Mutter kocht besser", nextScene: 33 }
+        ]
+    },
+
+    // Scene 14 - Zweite Rechnung
+    {
+        image: "Freundliche-Frau-mit-Rechnung.png",
+        text: "Hier kommt die Rechnung!",
+        choices: [
+            { text: "Für so eine Schönheit habe ich noch ein Geschenk", nextScene: 15 },
+            { text: "Du hast viel gegessen - zahl selbst!", nextScene: 32 }
+        ]
+    },
+
+    // Scene 15 - Zweites Geschenk
+    {
+        image: "Freundliche-Frau-mit-Geschenk.png",
+        text: "Das war wirklich besonders! Bringst du mich nach Hause?",
+        choices: [
+            { text: "Klar, ich fahre dich in meinem neuen Porsche", nextScene: 16 },
+            { text: "Nein, möchte ich nicht", nextScene: 10 }
+        ]
+    },
+
+    // Scene 16 - Gutes Ende 2
+    {
+        image: "Happy-End.png",
+        text: "Jana ist beeindruckt von deinem Charme und deinem Auto. Sie wird dich sicher wieder treffen wollen!",
+        choices: [
+            { text: "Neustart", nextScene: 0 }
+        ]
+    },
+
+    // Scene 17 - WLAN-Kommentar
+    {
+        image: "Verwirrte-Frau.png",
+        text: "Ähm... was?",
+        choices: [
+            { text: "Hat dir das nicht gefallen? Entschuldige", nextScene: 18 },
+            { text: "Du verstehst nichts von Anmachsprüchen!", nextScene: 34 }
+        ]
+    },
+
+    // Scene 18 - Nach Entschuldigung
     {
         image: "Freundliche-Frau-mit-Kellner.png",
-        text: "Jana lächelt zufrieden. Das war ein schöner Abend",
+        text: "Schon gut! Was möchtest du bestellen?",
         choices: [
-            { text: "Dann sehen wir uns wieder?", nextScene: 14 },
-            { text: "Ich hoffe, du denkst an mich", nextScene: 14 }
+            { text: "Ich vertraue dir", nextScene: 19 },
+            { text: "Das geht dich nichts an", nextScene: 34 }
         ]
     },
+
+    // Scene 19 - Dritte Bewertung
     {
-        image: "Traurige-Frau-mit-Essen.png",
-        text: "Sie nickt. Ganz sicher — ENDE",
+        image: "Freundliche-Frau-mit-Essen.png",
+        text: "Geschmeckt?",
         choices: [
-            { text: "Neu starten", nextScene: 0 }
+            { text: "Du hast verstecktes Talent! Fantastisch!", nextScene: 20 },
+            { text: "Hätte mir lieber selbst was bestellt...", nextScene: 34 }
         ]
     },
+
+    // Scene 20 - Dritte Rechnung
     {
-        image: "Leer.png",
-        text: "Du hast Jana sitzen lassen. Vielleicht beim nächsten Mal",
+        image: "Freundliche-Frau-mit-Rechnung.png",
+        text: "Da ist die Rechnung!",
         choices: [
-            { text: "Zurück zur Startseite", nextScene: 0 }
+            { text: "Dich ohne Geschenk zu lassen wäre falsch", nextScene: 21 },
+            { text: "Du isst wie ein Elefant - ich zahle nicht!", nextScene: 32 }
         ]
     },
+
+    // Scene 21 - Drittes Geschenk
     {
-        image: "Freundliche-Frau.png",
-        text: "Letzte Szene: Ihr verlasst das Café und sie schaut dich noch einmal an. Wie beendest du das Date?",
+        image: "Freundliche-Frau-mit-Geschenk.png",
+        text: "Wirklich ein toller Abend! Bringst du mich nach Hause?",
         choices: [
-            { text: "Mit einer herzlichen Umarmung", nextScene: 13 },
-            { text: "Mit einem Witz und einem Lächeln", nextScene: 13 }
+            { text: "Klar, ich nehme dich mit dem Uber mit", nextScene: 22 },
+            { text: "Nein, möchte ich nicht", nextScene: 10 }
         ]
     },
+
+    // Scene 22 - Gutes Ende 3
     {
-        image: "Frau-zahlt.png",
-        text: "Der Kellner bringt die Rechnung. Jana schaut dich an.",
+        image: "Happy-End.png",
+        text: "Trotz des holprigen Starts hat Jana den Abend genossen. Vielleicht schreibt sie dir bald wieder!",
         choices: [
-            { text: "Ich übernehme das gerne.", nextScene: 18 },
-            { text: "Wollen wir teilen?", nextScene: 19 }
+            { text: "Neustart", nextScene: 0 }
         ]
     },
+
+    // Scene 23 - Wasser bestellt
     {
-        image: "Lächelnde-Frau.png",
-        text: "Sie lächelt. Das ist sehr höflich von dir.",
+        image: "Verärgerte-Frau.png",
+        text: "Nur Wasser? Bist du geizig?",
         choices: [
-            { text: "Ein Gentleman verschwindet nie.", nextScene: 20 },
-            { text: "Ich finde, das gehört sich so.", nextScene: 20 }
+            { text: "War nur ein Scherz! Ich vertraue dir", nextScene: 24 },
+            { text: "Du willst zu viel", nextScene: 34 }
         ]
     },
+
+    // Scene 24 - Nach Scherz
+    {
+        image: "Freundliche-Frau-mit-Essen.png",
+        text: "Und? Wie ist es?",
+        choices: [
+            { text: "Sehr lecker!", nextScene: 25 },
+            { text: "Da bekomme ich Sodbrennen...", nextScene: 34 }
+        ]
+    },
+
+    // Scene 25 - Vierte Rechnung
+    {
+        image: "Freundliche-Frau-mit-Rechnung.png",
+        text: "Hier ist die Rechnung!",
+        choices: [
+            { text: "Ich möchte mich entschuldigen - hier ein Geschenk", nextScene: 26 },
+            { text: "Ich zahle nur meinen Teil!", nextScene: 32 }
+        ]
+    },
+
+    // Scene 26 - Viertes Geschenk
+    {
+        image: "Freundliche-Frau-mit-Geschenk.png",
+        text: "Das war ein besonderer Abend! Bringst du mich nach Hause?",
+        choices: [
+            { text: "Natürlich, ich bringe dich", nextScene: 27 },
+            { text: "Ich bin müde", nextScene: 10 }
+        ]
+    },
+
+    // Scene 27 - Neutrales Ende
     {
         image: "Neutrale-Frau.png",
-        text: "Sie nickt langsam. Okay, wie du meinst.",
+        text: "Jana hatte Spaß, aber dein schlechter Scherz am Anfang war nicht besonders charmant.",
         choices: [
-            { text: "Ich meinte das nicht böse.", nextScene: 20 },
-            { text: "Gleichberechtigung oder?", nextScene: 6 }
+            { text: "Neustart", nextScene: 0 }
         ]
     },
+
+    // Scene 28 - Essen nicht gemocht
     {
-        image: "Draußen-lächelnd.png",
-        text: "Ihr steht draußen. Es ist etwas kühl.",
+        image: "Verärgerte-Frau.png",
+        text: "Dann iss halt nicht!",
         choices: [
-            { text: "Deine Jacke anbieten", nextScene: 21 },
-            { text: "Fragen: Sollen wir noch spazieren?", nextScene: 22 }
+            { text: "Ich wollte dich nicht verletzen! Es schmeckt wirklich nicht", nextScene: 29 },
+            { text: "Dann esse ich eben nicht", nextScene: 34 }
         ]
     },
+
+    // Scene 29 - Fünfte Rechnung
     {
-        image: "Dankbare-Frau.png",
-        text: "Danke, das ist lieb von dir.",
+        image: "Freundliche-Frau-mit-Rechnung.png",
+        text: "Hier ist die Rechnung!",
         choices: [
-            { text: "Du bist es wert.", nextScene: 23 },
-            { text: "Ich bin halt ein Klassiker.", nextScene: 23 }
+            { text: "Das Essen war nicht gut, hier ein Entschuldigungsgeschenk", nextScene: 30 },
+            { text: "Das Essen war schlecht - zahl selbst!", nextScene: 32 }
         ]
     },
+
+    // Scene 30 - Fünftes Geschenk
     {
-        image: "Spaziergang.png",
-        text: "Ihr geht ein paar Schritte gemeinsam.",
+        image: "Freundliche-Frau-mit-Geschenk.png",
+        text: "Trotz allem ein schöner Abend! Bringst du mich nach Hause?",
         choices: [
-            { text: "Hand nehmen", nextScene: 24 },
-            { text: "Über die Sterne reden", nextScene: 25 }
+            { text: "Natürlich, ich bringe dich", nextScene: 31 },
+            { text: "Ich habe einen Zahnarzttermin! Sorry", nextScene: 10 }
         ]
     },
+
+    // Scene 31 - Neutrales Ende 2
     {
-        image: "Berührte-Frau.png",
-        text: "Sie lässt es zu. Das fühlt sich gut an.",
+        image: "Neutrale-Frau.png",
+        text: "Jana hatte Spaß, aber deine Kritik am Essen hat sie verunsichert.",
         choices: [
-            { text: "Ich wollte diesen Moment.", nextScene: 26 },
-            { text: "Schön, dass du da bist.", nextScene: 26 }
+            { text: "Neustart", nextScene: 0 }
         ]
     },
+
+    // Scene 32 - Geizig
     {
-        image: "Sterne.png",
-        text: "Sie schaut nach oben. Magisch.",
+        image: "Wütende-Frau.png",
+        text: "Meine Güte! Bist du geizig!",
         choices: [
-            { text: "Du bist schöner als der Himmel.", nextScene: 26 },
-            { text: "Ich wünschte, dieser Moment bleibt.", nextScene: 26 }
+            { text: "Neustart", nextScene: 0 }
         ]
     },
+
+    // Scene 33 - Mutter-Kommentar
     {
-        image: "Lächelnde-Frau.png",
-        text: "Sie schaut dich ruhig an.",
+        image: "Wütende-Frau.png",
+        text: "Dann geh doch mit deiner Mutter aus!",
         choices: [
-            { text: "Darf ich dich küssen?", nextScene: 27 },
-            { text: "Ich will dich nicht überrumpeln.", nextScene: 28 }
+            { text: "Neustart", nextScene: 0 }
         ]
     },
+
+    // Scene 34 - Unhöflich
     {
-        image: "Kuss.png",
-        text: "Ihr küsst euch zärtlich. Ein perfekter Moment.",
+        image: "Wütende-Frau.png",
+        text: "Wie unhöflich! Ich gehe!",
         choices: [
-            { text: "Ende mit einem Kuss", nextScene: 14 }
-        ]
-    },
-    {
-        image: "Verabschiedung.png",
-        text: "Sie umarmt dich sanft. Es war schön heute.",
-        choices: [
-            { text: "Bis bald, Jana", nextScene: 14 }
-        ]
-    },
-    {
-        image: "Leer.png",
-        text: "Du hast Jana sitzen lassen. Vielleicht beim nächsten Mal",
-        choices: [
-            { text: "Zurück zur Startseite", nextScene: 0 }
+            { text: "Neustart", nextScene: 0 }
         ]
     }
 ];
