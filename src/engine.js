@@ -1,29 +1,23 @@
-let currentScene = 0;
+let currentScene = 1;
 let badStreak = 0;
-let selectedGift = null;
 
+// Initialize event listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize event listeners
     document.getElementById("start-button").addEventListener("click", startGame);
-    document.getElementById("return-button").addEventListener("click", returnToStart);
-    document.getElementById("prev-gift").addEventListener("click", prevGift);
-    document.getElementById("next-gift").addEventListener("click", nextGift);
-    document.getElementById("accept-gift").addEventListener("click", confirmGift);
+    document.getElementById("restart-button").addEventListener("click", restartGame);
 });
 
 function startGame() {
-    currentScene = 1; // Start with scene ID 1
+    currentScene = 1;
     badStreak = 0;
     updateScene();
     document.getElementById("start-screen").style.display = "none";
-    document.getElementById("game-container").style.display = "block";
-    document.getElementById("missed-screen").style.display = "none";
+    document.getElementById("game-container").style.display = "flex";
 }
 
-function returnToStart() {
-    document.getElementById("start-screen").style.display = "flex";
-    document.getElementById("missed-screen").style.display = "none";
-    document.getElementById("game-container").style.display = "none";
+function restartGame() {
+    document.getElementById("ending-screen").style.display = "none";
+    startGame();
 }
 
 function updateScene() {
@@ -54,18 +48,12 @@ function updateScene() {
         } else {
             // Add choices after text is fully displayed
             if (scene.choices && scene.choices.length > 0) {
-                scene.choices.forEach((choice, i) => {
+                scene.choices.forEach((choice) => {
                     const button = document.createElement("button");
                     button.textContent = choice.text;
-                    button.addEventListener("click", () => choose(choice));
+                    button.addEventListener("click", () => makeChoice(choice));
                     choicesDiv.appendChild(button);
                 });
-            } else {
-                // Default continue button if no choices
-                const button = document.createElement("button");
-                button.textContent = "Weiter";
-                button.addEventListener("click", returnToStart);
-                choicesDiv.appendChild(button);
             }
         }
     }
@@ -73,7 +61,7 @@ function updateScene() {
     typeWriter();
 }
 
-function choose(choice) {
+function makeChoice(choice) {
     if (choice.bad) {
         badStreak++;
     } else {
@@ -91,11 +79,6 @@ function choose(choice) {
         return;
     }
 
-    if (choice.gift) {
-        openGiftScreen();
-        return;
-    }
-
     if (choice.nextScene) {
         currentScene = choice.nextScene;
         updateScene();
@@ -107,57 +90,9 @@ function showEnding(endingId) {
     if (!ending) return;
 
     document.getElementById("game-container").style.display = "none";
-    document.getElementById("missed-screen").style.display = "flex";
+    document.getElementById("ending-screen").style.display = "flex";
 
-    const endingTitle = document.getElementById("ending-title");
-    const endingText = document.getElementById("ending-text");
-    const endingImage = document.getElementById("scene-image");
-
-    endingTitle.textContent = ending.title;
-    endingText.textContent = ending.text;
-    endingImage.src = ending.image;
-    endingImage.style.display = "block";
-}
-
-// Gift selection functions
-let currentGiftIndex = 0;
-
-function openGiftScreen() {
-    document.getElementById("game-container").style.display = "none";
-    document.getElementById("gift-screen").style.display = "flex";
-    updateGiftDisplay();
-}
-
-function updateGiftDisplay() {
-    const gift = gifts[currentGiftIndex];
-    document.getElementById("gift-image").src = gift.image;
-    document.getElementById("gift-name").textContent = gift.name;
-}
-
-function prevGift() {
-    currentGiftIndex = (currentGiftIndex - 1 + gifts.length) % gifts.length;
-    updateGiftDisplay();
-}
-
-function nextGift() {
-    currentGiftIndex = (currentGiftIndex + 1) % gifts.length;
-    updateGiftDisplay();
-}
-
-function confirmGift() {
-    selectedGift = gifts[currentGiftIndex];
-    document.getElementById("gift-screen").style.display = "none";
-    document.getElementById("game-container").style.display = "block";
-
-    // Special ending for plush toy (ID 3)
-    if (selectedGift.id === 3) {
-        showEnding(13);
-    } else {
-        // Continue to next scene
-        const scene = scenes.find(s => s.id === currentScene);
-        if (scene && scene.nextScene) {
-            currentScene = scene.nextScene;
-            updateScene();
-        }
-    }
+    document.getElementById("ending-title").textContent = ending.title;
+    document.getElementById("ending-text").textContent = ending.text;
+    document.getElementById("ending-image").src = ending.image;
 }

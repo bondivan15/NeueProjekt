@@ -1,151 +1,218 @@
 const scenes = [
     {
-        image: "Frau-sitzt-allein.png", // Яна сидит одна, пустой стол, нет еды — ожидание
-        text: "Jana wartet schon im Café. Was machst du?",
+        id: 1,
+        image: "bilder/Frau-sitzt-allein.png",
+        text: "Jana wartet schon auf dich.",
         choices: [
-            { text: "Ich setze mich zu ihr und lächle", nextScene: 1 },
-            { text: "Ich gehe einfach nicht rein", nextScene: 18 } // концовка "не пришёл"
+            { text: "Ich setze mich und mache ihr ein Kompliment", nextScene: 2 },
+            { text: "Ich komme nicht", ending: 1 }
         ]
     },
     {
-        image: "Freundliche-Frau.png", // Улыбка, пустой стол — тёплое приветствие
-        text: "Schön, dass du gekommen bist!",
+        id: 2,
+        image: "bilder/FreundlicheFrauMitLeerTisch.png",
+        text: "Hallo! Du bist so süß!",
         choices: [
-            { text: "Ich hab mich auch gefreut", nextScene: 2 },
-            { text: "Ich bin nur aus Langeweile hier", nextScene: 3, negative: true }
+            { text: "Wie war dein Tag?", nextScene: 3 },
+            { text: "Ich sage nichts und rufe den Kellner", nextScene: 11, bad: true }
         ]
     },
     {
-        image: "Freundliche-Frau-mit-Kellner.png", // Появился официант с меню — всё идёт хорошо
-        text: "Der Kellner bringt euch die Karte. Was sagst du?",
+        id: 3,
+        image: "bilder/FreundlicheFrauMitLeerTisch.png",
+        text: "Gut! Wollen wir den Kellner rufen?",
         choices: [
-            { text: "Was möchtest du trinken?", nextScene: 4 },
-            { text: "Ich bestell einfach für uns beide", nextScene: 5 }
+            { text: "Klar, mein Schatz", nextScene: 4 },
+            { text: "Bist du WLAN? Warum fühle ich so eine starke Verbindung?", nextScene: 17, bad: true }
         ]
     },
     {
-        image: "mittel-Laune-Frau.png", // Она удивлена или разочарована
-        text: "Aha. Ehrlich… aber nicht besonders charmant.",
+        id: 4,
+        image: "bilder/Frau-mit-Speisekarte.png",
+        text: "Da ist er! Was möchtest du?",
         choices: [
-            { text: "Tut mir leid, ich bin nervös", nextScene: 2 },
-            { text: "Ich verschwende ungern Zeit", nextScene: 6, negative: true }
+            { text: "Ich vertraue deinem Geschmack", nextScene: 5 },
+            { text: "Lass uns nur zwei Gläser Wasser bestellen", nextScene: 23, bad: true }
         ]
     },
     {
-        image: "Freundliche-Frau.png", // Всё ещё хорошее настроение
-        text: "Ich nehme einen Tee. Und du?",
+        id: 5,
+        image: "bilder/Frau-mit-Essen.png",
+        text: "Wie schmeckt es dir?",
         choices: [
-            { text: "Ich nehme das Gleiche", nextScene: 7 },
-            { text: "Ich trinke lieber nichts", nextScene: 6, negative: true }
+            { text: "Ein Meisterwerk! Du hast genau richtig gewählt!", nextScene: 6 },
+            { text: "Ehrlich? Es hat mir nicht geschmeckt", nextScene: 28, bad: true }
         ]
     },
     {
-        image: "mittel-Laune-Frau-mit-Kellner.png", // Официант подаёт напитки, Яна нейтральна
-        text: "Interessant. Du nimmst einfach die Entscheidung?",
+        id: 6,
+        image: "bilder/Ohne_Frau_mit_Essen_und_Check.png",
+        text: "Und hier ist schon die Rechnung!",
         choices: [
-            { text: "Ich wollte dich überraschen", nextScene: 7 },
-            { text: "Besser als langes Gerede", nextScene: 6, negative: true }
+            { text: "Ich möchte dich nach Hause bringen", nextScene: 8 },
+            { text: "Sollen wir teilen?", ending: 12, bad: true }
         ]
     },
     {
-        image: "böse-Frau.png", // Яна недовольна — граница перед "слишком груб"
-        text: "Weißt du, ich mag Ehrlichkeit, aber das ist zu viel.",
+        id: 8,
+        image: "bilder/NachHause.png",
+        text: "Es war ein wunderschöner Abend! Bringst du mich nach Hause?",
         choices: [
-            { text: "Okay… dann ein kleines Geschenk zur Entschuldigung?", nextScene: 8 },
-            { text: "Du übertreibst", nextScene: 19, negative: true } // три подряд — конец
+            { text: "Natürlich, Sonnenschein", ending: 2 },
+            { text: "Geh lieber allein", ending: 3, bad: true }
         ]
     },
     {
-        image: "Freundliche-Frau-mit-Kellner.png", // Сцена нейтрализации — подарок
-        text: "Oh! Du hast mir was mitgebracht?",
+        id: 11,
+        image: "bilder/Traurige-Frau-mit-Kellner.png",
+        text: "Du redest wenig.",
         choices: [
-            { text: "Ja. Schau mal!", nextScene: 9 },
-            { text: "Das wirst du lieben", nextScene: 9 }
+            { text: "Tut mir leid. Ich hatte einen schlechten Tag", nextScene: 12 },
+            { text: "Geht dich nichts an!", ending: 4, bad: true }
         ]
     },
     {
-        image: "gift-screen.png", // Специальный экран выбора подарка
-        text: "", // добавляется через engine
-        choices: [] // заполняется динамически
-    },
-    {
-        image: "geschenk1.png", // Подарок: розы — она счастлива
-        text: "Oh mein Gott, wie schön! Danke dir!",
+        id: 12,
+        image: "bilder/Frau-mit-Speisekarte.png",
+        text: "Verstehe! Was möchtest du essen?",
         choices: [
-            { text: "Das hast du verdient", nextScene: 10 },
-            { text: "Ich wollte dich glücklich machen", nextScene: 10 }
+            { text: "Ich vertraue deinem Geschmack", nextScene: 13 },
+            { text: "Warum ist das Restaurant so teuer?", ending: 4, bad: true }
         ]
     },
     {
-        image: "Freundliche-Frau.png", // После подарка — тёплая атмосфера
-        text: "Ich bin froh, dass wir uns getroffen haben.",
+        id: 13,
+        image: "bilder/Frau-mit-Essen.png",
+        text: "Und wie ist es?",
         choices: [
-            { text: "Ich auch. Vielleicht wiederholen wir das?", nextScene: 11 },
-            { text: "War ein netter Abend", nextScene: 11 }
+            { text: "Mmmm, köstlich!!!", nextScene: 14 },
+            { text: "Meine Mutter kocht besser", ending: 3, bad: true }
         ]
     },
     {
-        image: "Freundliche-Frau.png", // Последний шаг — прощание
-        text: "Dann sehen wir uns hoffentlich bald wieder.",
+        id: 14,
+        image: "bilder/Ohne_Frau_mit_Essen_und_Check.png",
+        text: "Und hier ist die Rechnung!",
         choices: [
-            { text: "Ganz sicher", nextScene: 17 },
-            { text: "Mal sehen", nextScene: 6, negative: true }
+            { text: "Ich möchte dich nach Hause bringen", nextScene: 8 },
+            { text: "Wow, hast du viel gegessen! Zahl selbst!", ending: 12, bad: true }
         ]
     },
     {
-        image: "geschenk2.png", // Подарок: шоколад — приятный сюрприз
-        text: "Schokolade? Wie romantisch!",
+        id: 17,
+        image: "bilder/ein-bisschen-böse-Frau-mit-Essen.png",
+        text: "Hmmmm...",
         choices: [
-            { text: "Du bist süßer als jede Schokolade", nextScene: 10 },
-            { text: "Das war nicht teuer", nextScene: 6, negative: true }
+            { text: "Hat es dir nicht gefallen? Tut mir leid", nextScene: 18 },
+            { text: "Du verstehst keine Anmachsprüche!", ending: 4, bad: true }
         ]
     },
     {
-        image: "geschenk3.png", // Подарок: ничего — она в замешательстве
-        text: "Was war das denn? Das war doch gar kein Geschenk.",
+        id: 18,
+        image: "bilder/Frau-mit-Speisekarte.png",
+        text: "Schwamm drüber! Was willst du bestellen?",
         choices: [
-            { text: "Ein Witz!", nextScene: 6, negative: true },
-            { text: "Ich wollte testen, wie du reagierst", nextScene: 6, negative: true }
+            { text: "Ich vertraue deinem Geschmack", nextScene: 19 },
+            { text: "Geht dich nichts an", ending: 4, bad: true }
         ]
     },
     {
-        image: "geschenk4.png", // Подарок: игрушка — она удивлена и радуется
-        text: "Ohh! Ich liebe sowas. Du bist ja richtig trendy.",
+        id: 19,
+        image: "bilder/Frau-mit-Essen.png",
+        text: "Und, hast du probiert?",
         choices: [
-            { text: "Nur das Beste!", nextScene: 10 },
-            { text: "Dachte, das passt zu dir", nextScene: 10 }
+            { text: "Du hast wirklich Talent! Großartig!", nextScene: 20 },
+            { text: "Hätte besser selbst bestellt...", ending: 4, bad: true }
         ]
     },
     {
-        image: "geschenk5.png", // Подарок: кольцо — она счастлива
-        text: "Was?! Ein Ring? ...Ja!!",
+        id: 20,
+        image: "bilder/Ohne_Frau_mit_Essen_und_Check.png",
+        text: "Und die Rechnung kommt!",
         choices: [
-            { text: "Ich meine es ernst", nextScene: 17 },
-            { text: "War 'n Scherz", nextScene: 6, negative: true }
+            { text: "Ich möchte dich nach Hause bringen", nextScene: 8 },
+            { text: "Du isst wie ein Elefant! Ich zahl das nicht", ending: 12, bad: true }
         ]
     },
     {
-        image: "Freundliche-Frau.png", // Счастливый финал
-        text: "Das war ein wunderschöner Abend.",
+        id: 23,
+        image: "bilder/Böse-Frau-mit-Essen.png",
+        text: "So wenig? Geizig...",
         choices: [
-            { text: "Bis bald!", nextScene: 17 },
-            { text: "Schlaf gut!", nextScene: 17 }
+            { text: "War ein Scherz! Ich vertraue deinem Geschmack", nextScene: 24 },
+            { text: "Du verlangst zu viel", ending: 4, bad: true }
         ]
     },
-
     {
-        image: "Leer.png", // Пустой фон — если не пришёл
-        text: "Jana hat gewartet… aber du bist nicht gekommen.",
+        id: 24,
+        image: "bilder/Frau-mit-Essen.png",
+        text: "Und wie ist es?",
         choices: [
-            { text: "Zurück zur Startseite", nextScene: 0 }
+            { text: "Lecker!", nextScene: 25 },
+            { text: "Ich könnte kotzen...", ending: 4, bad: true }
         ]
     },
-
     {
-        image: "Schwarzer-Bildschirm.png", // Экран гнева после 3 плохих ответов
-        text: "Du warst zu unhöflich oder zu merkwürdig. Jana ist gegangen.",
+        id: 25,
+        image: "bilder/Ohne_Frau_mit_Essen_und_Check.png",
+        text: "Rechnung ist da!",
         choices: [
-            { text: "Zurück zur Startseite", nextScene: 0 }
+            { text: "Ich möchte dich nach Hause bringen", nextScene: 8 },
+            { text: "Ich zahl nur meinen Teil!", ending: 12, bad: true }
+        ]
+    },
+    {
+        id: 28,
+        image: "bilder/Sehr_böse-Frau.png",
+        text: "Dann iss es nicht.",
+        choices: [
+            { text: "Ich wollte dich nicht beleidigen. Es war wirklich nicht lecker", nextScene: 29 },
+            { text: "Dann ess ich's halt nicht...", ending: 4, bad: true }
+        ]
+    },
+    {
+        id: 29,
+        image: "bilder/Ohne_Frau_mit_Essen_und_Check.png",
+        text: "Und hier ist die Rechnung!",
+        choices: [
+            { text: "Ich möchte dich nach Hause bringen", nextScene: 8 },
+            { text: "Essen war schlecht, zahl selbst!", ending: 12, bad: true }
+        ]
+    },
+    {
+        id: 49,
+        image: "bilder/Sehr_böse-Frau.png",
+        text: "Das war's! Ich gehe. Du bist unmöglich!",
+        choices: [
+            { text: "Neu starten", nextScene: 1 }
         ]
     }
 ];
+
+const endings = {
+    1: {
+        title: "Nicht erschienen",
+        text: "Jana hat vergeblich gewartet. Vielleicht beim nächsten Mal.",
+        image: "bilder/TraurigeFrauLeerTisch.png"
+    },
+    2: {
+        title: "Erfolgreiches Date",
+        text: "Du hast Jana nach Hause gebracht und einen guten Eindruck hinterlassen!",
+        image: "bilder/FrauLachtLeerTisch.png"
+    },
+    3: {
+        title: "Alleine nach Hause",
+        text: "Jana ist enttäuscht alleine gegangen. Das war wohl nichts.",
+        image: "bilder/TraurigeFrauLeerTisch.png"
+    },
+    4: {
+        title: "Schlechtes Benehmen",
+        text: "Dein unhöfliches Verhalten hat Jana vergrault. Versuche es beim nächsten Mal freundlicher.",
+        image: "bilder/Sehr_böse-Frau.png"
+    },
+    12: {
+        title: "Geizhals",
+        text: "Jana mag keine Geizhälse. Sie hat das Date früh beendet.",
+        image: "bilder/Böse-Frau-mit-Essen.png"
+    }
+};

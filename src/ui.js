@@ -1,12 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize event listeners
     document.getElementById("start-button").addEventListener("click", startGame);
-    document.getElementById("return-button").addEventListener("click", returnToStart);
-    document.getElementById("prev-gift").addEventListener("click", prevGift);
-    document.getElementById("next-gift").addEventListener("click", nextGift);
-    document.getElementById("accept-gift").addEventListener("click", confirmGift);
+    document.getElementById("restart-button").addEventListener("click", restartGame);
 
-    // Initialize the first scene if needed
+    // Debug mode can остаться если нужно
     if (window.location.hash === "#debug") {
         startGame();
     }
