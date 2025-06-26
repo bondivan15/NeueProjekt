@@ -1,149 +1,218 @@
 const scenes = [
     {
-        image: "Frau-sitzt-allein.png", // Яна сидит одна, пустой стол, нет еды — ожидание
-        text: "Jana wartet schon im Café. Was machst du?",
+        image: "Frau-sitzt-allein.png",
+        text: "Du stehst vor dem Café? Jana wartet schon? Was machst du?",
         choices: [
-            { text: "Ich setze mich zu ihr und lächle", nextScene: 1 },
-            { text: "Ich gehe einfach nicht rein", nextScene: 18 } // концовка "не пришёл"
+            { text: "Du gehst hinein und setzt dich zu ihr", nextScene: 1 },
+            { text: "Du gehst einfach nicht hinein", nextScene: 29 }
         ]
     },
     {
-        image: "Freundliche-Frau.png", // Улыбка, пустой стол — тёплое приветствие
-        text: "Schön, dass du gekommen bist!",
+        image: "FreundlicheFrauMitLeerTisch.png",
+        text: "Jana lächelt. Ich habe schon gedacht, du kommst nicht?",
         choices: [
-            { text: "Ich hab mich auch gefreut", nextScene: 2 },
-            { text: "Ich bin nur aus Langeweile hier", nextScene: 3, negative: true }
+            { text: "Ich hätte dich doch nie sitzen gelassen", nextScene: 2 },
+            { text: "Ich habe echt überlegt, ob ich komme", nextScene: 3 }
         ]
     },
     {
-        image: "Freundliche-Frau-mit-Kellner.png", // Появился официант с меню — всё идёт хорошо
-        text: "Der Kellner bringt euch die Karte. Was sagst du?",
+        image: "Freundliche-Frau-mit-Kellner.png",
+        text: "Sie lacht. Na gut, du bist ja da",
         choices: [
-            { text: "Was möchtest du trinken?", nextScene: 4 },
-            { text: "Ich bestell einfach für uns beide", nextScene: 5 }
+            { text: "Ein charmantes Kompliment machen", nextScene: 4 },
+            { text: "Fragen, wie ihr Tag war", nextScene: 5 }
         ]
     },
     {
-        image: "mittel-Laune-Frau.png", // Она удивлена или разочарована
-        text: "Aha. Ehrlich… aber nicht besonders charmant.",
+        image: "mittel-Laune-Frau.png",
+        text: "Sie runzelt die Stirn. Aha. Ehrlich bist du zumindest",
         choices: [
-            { text: "Tut mir leid, ich bin nervös", nextScene: 2 },
-            { text: "Ich verschwende ungern Zeit", nextScene: 6, negative: true }
+            { text: "Ich bin halt nervös", nextScene: 4 },
+            { text: "Ich verschwende ungern Zeit", nextScene: 6 }
         ]
     },
     {
-        image: "Freundliche-Frau.png", // Всё ещё хорошее настроение
-        text: "Ich nehme einen Tee. Und du?",
+        image: "Freundliche-Frau.png",
+        text: "Sie lächelt. Du bist ja richtig süß, wenn du willst",
         choices: [
-            { text: "Ich nehme das Gleiche", nextScene: 7 },
-            { text: "Ich trinke lieber nichts", nextScene: 6, negative: true }
+            { text: "Der Kellner kommt – etwas für euch beide bestellen", nextScene: 7 },
+            { text: "Fragen, was sie gerne essen möchte", nextScene: 7 }
         ]
     },
     {
-        image: "mittel-Laune-Frau-mit-Kellner.png", // Официант подаёт напитки, Яна нейтральна
-        text: "Interessant. Du nimmst einfach die Entscheidung?",
+        image: "Freundliche-Frau.png",
+        text: "Mein Tag war entspannt – aber ich hatte den Kopf voll mit diesem Treffen",
         choices: [
-            { text: "Ich wollte dich überraschen", nextScene: 7 },
-            { text: "Besser als langes Gerede", nextScene: 6, negative: true }
+            { text: "Ich hab mich auch echt gefreut", nextScene: 4 },
+            { text: "Und trotzdem bist du gekommen?", nextScene: 6 }
         ]
     },
     {
-        image: "böse-Frau.png", // Яна недовольна — граница перед "слишком груб"
-        text: "Weißt du, ich mag Ehrlichkeit, aber das ist zu viel.",
+        image: "Sehr-böse-Frau-mit-Essen.png",
+        text: "Jana schaut dich ernst an. STOPP! Hört das jetzt mal auf mit dem Unfreundlichen. Sie steht auf und geht",
         choices: [
-            { text: "Okay… dann ein kleines Geschenk zur Entschuldigung?", nextScene: 8 },
-            { text: "Du übertreibst", nextScene: 19, negative: true } // три подряд — конец
+            { text: "Neu starten", nextScene: 0 }
         ]
     },
     {
-        image: "Freundliche-Frau-mit-Kellner.png", // Сцена нейтрализации — подарок
-        text: "Oh! Du hast mir was mitgebracht?",
+        image: "Frau-mit-Speisekarte.png",
+        text: "Der Kellner bringt die Speisekarten. Jana schaut dich erwartungsvoll an",
         choices: [
-            { text: "Ja. Schau mal!", nextScene: 9 },
-            { text: "Das wirst du lieben", nextScene: 9 }
+            { text: "Fragen: Was bestellst du? Ich nehme das gleiche", nextScene: 8 },
+            { text: "Einfach zwei Gläser Wasser bestellen", nextScene: 9 }
         ]
     },
     {
-        image: "gift-screen.png", // Специальный экран выбора подарка
-        text: "", // добавляется через engine
-        choices: [] // заполняется динамически
-    },
-    {
-        image: "geschenk1.png", // Подарок: розы — она счастлива
-        text: "Oh mein Gott, wie schön! Danke dir!",
+        image: "Freundliche-Frau.png",
+        text: "Oh, das ist süß. Ich hoffe, du magst Pasta",
         choices: [
-            { text: "Das hast du verdient", nextScene: 10 },
-            { text: "Ich wollte dich glücklich machen", nextScene: 10 }
+            { text: "Lächeln und sagen: Klar – besonders mit dir", nextScene: 10 },
+            { text: "Fragen: Wenn du aussuchen könntest – Pizza oder Sushi?", nextScene: 11 }
         ]
     },
     {
-        image: "Freundliche-Frau.png", // После подарка — тёплая атмосфера
-        text: "Ich bin froh, dass wir uns getroffen haben.",
+        image: "ein-bisschen-böse-Frau-mit-Essen.png",
+        text: "Sie schaut irritiert. Nur Wasser? Wirklich?",
         choices: [
-            { text: "Ich auch. Vielleicht wiederholen wir das?", nextScene: 11 },
-            { text: "War ein netter Abend", nextScene: 11 }
+            { text: "Ich wollte dich überraschen mit einem Geschenk", nextScene: 12 },
+            { text: "Ich trink eh nie was anderes", nextScene: 6 }
         ]
     },
     {
-        image: "Freundliche-Frau.png", // Последний шаг — прощание
-        text: "Dann sehen wir uns hoffentlich bald wieder.",
+        image: "Freundliche-Frau.png",
+        text: "Sie grinst. Du bist charmant. Gefährlich charmant",
         choices: [
-            { text: "Ganz sicher", nextScene: 17 },
-            { text: "Mal sehen", nextScene: 6, negative: true }
+            { text: "Dann brauchst du einen Talisman (gib ihr ein Geschenk)", nextScene: 12 },
+            { text: "Dann pass gut auf dich auf heute", nextScene: 13 }
         ]
     },
     {
-        image: "geschenk2.png", // Подарок: шоколад — приятный сюрприз
-        text: "Schokolade? Wie romantisch!",
+        image: "Freundliche-Frau-mit-Kellner.png",
+        text: "Du gibst ihr ein kleines Geschenk. Ihre Augen leuchten",
         choices: [
-            { text: "Du bist süßer als jede Schokolade", nextScene: 10 },
-            { text: "Das war nicht teuer", nextScene: 6, negative: true }
+            { text: "Nur eine Kleinigkeit. Du hast’s verdient", nextScene: 13 },
+            { text: "Ein Date ohne Überraschung ist wie Pizza ohne Käse", nextScene: 13 }
         ]
     },
     {
-        image: "geschenk3.png", // Подарок: ничего — она в замешательстве
-        text: "Was war das denn? Das war doch gar kein Geschenk.",
+        image: "Freundliche-Frau-mit-Kellner.png",
+        text: "Jana lächelt zufrieden. Das war ein schöner Abend",
         choices: [
-            { text: "Ein Witz!", nextScene: 6, negative: true },
-            { text: "Ich wollte testen, wie du reagierst", nextScene: 6, negative: true }
+            { text: "Dann sehen wir uns wieder?", nextScene: 14 },
+            { text: "Ich hoffe, du denkst an mich", nextScene: 14 }
         ]
     },
     {
-        image: "geschenk4.png", // Подарок: игрушка — она удивлена и радуется
-        text: "Ohh! Ich liebe sowas. Du bist ja richtig trendy.",
+        image: "Traurige-Frau-mit-Essen.png",
+        text: "Sie nickt. Ganz sicher — ENDE",
         choices: [
-            { text: "Nur das Beste!", nextScene: 10 },
-            { text: "Dachte, das passt zu dir", nextScene: 10 }
+            { text: "Neu starten", nextScene: 0 }
         ]
     },
     {
-        image: "geschenk5.png", // Подарок: кольцо — она счастлива
-        text: "Was?! Ein Ring? ...Ja!!",
-        choices: [
-            { text: "Ich meine es ernst", nextScene: 17 },
-            { text: "War 'n Scherz", nextScene: 6, negative: true }
-        ]
-    },
-    {
-        image: "Freundliche-Frau.png", // Счастливый финал
-        text: "Das war ein wunderschöner Abend.",
-        choices: [
-            { text: "Bis bald!", nextScene: 17 },
-            { text: "Schlaf gut!", nextScene: 17 }
-        ]
-    },
-
-    {
-        image: "Leer.png", // Пустой фон — если не пришёл
-        text: "Jana hat gewartet… aber du bist nicht gekommen.",
+        image: "Leer.png",
+        text: "Du hast Jana sitzen lassen. Vielleicht beim nächsten Mal",
         choices: [
             { text: "Zurück zur Startseite", nextScene: 0 }
         ]
     },
-
     {
-        image: "Schwarzer-Bildschirm.png", // Экран гнева после 3 плохих ответов
-        text: "Du warst zu unhöflich oder zu merkwürdig. Jana ist gegangen.",
+        image: "Freundliche-Frau.png",
+        text: "Letzte Szene: Ihr verlasst das Café und sie schaut dich noch einmal an. Wie beendest du das Date?",
+        choices: [
+            { text: "Mit einer herzlichen Umarmung", nextScene: 13 },
+            { text: "Mit einem Witz und einem Lächeln", nextScene: 13 }
+        ]
+    },
+    {
+        image: "Frau-zahlt.png",
+        text: "Der Kellner bringt die Rechnung. Jana schaut dich an.",
+        choices: [
+            { text: "Ich übernehme das gerne.", nextScene: 18 },
+            { text: "Wollen wir teilen?", nextScene: 19 }
+        ]
+    },
+    {
+        image: "Lächelnde-Frau.png",
+        text: "Sie lächelt. Das ist sehr höflich von dir.",
+        choices: [
+            { text: "Ein Gentleman verschwindet nie.", nextScene: 20 },
+            { text: "Ich finde, das gehört sich so.", nextScene: 20 }
+        ]
+    },
+    {
+        image: "Neutrale-Frau.png",
+        text: "Sie nickt langsam. Okay, wie du meinst.",
+        choices: [
+            { text: "Ich meinte das nicht böse.", nextScene: 20 },
+            { text: "Gleichberechtigung oder?", nextScene: 6 }
+        ]
+    },
+    {
+        image: "Draußen-lächelnd.png",
+        text: "Ihr steht draußen. Es ist etwas kühl.",
+        choices: [
+            { text: "Deine Jacke anbieten", nextScene: 21 },
+            { text: "Fragen: Sollen wir noch spazieren?", nextScene: 22 }
+        ]
+    },
+    {
+        image: "Dankbare-Frau.png",
+        text: "Danke, das ist lieb von dir.",
+        choices: [
+            { text: "Du bist es wert.", nextScene: 23 },
+            { text: "Ich bin halt ein Klassiker.", nextScene: 23 }
+        ]
+    },
+    {
+        image: "Spaziergang.png",
+        text: "Ihr geht ein paar Schritte gemeinsam.",
+        choices: [
+            { text: "Hand nehmen", nextScene: 24 },
+            { text: "Über die Sterne reden", nextScene: 25 }
+        ]
+    },
+    {
+        image: "Berührte-Frau.png",
+        text: "Sie lässt es zu. Das fühlt sich gut an.",
+        choices: [
+            { text: "Ich wollte diesen Moment.", nextScene: 26 },
+            { text: "Schön, dass du da bist.", nextScene: 26 }
+        ]
+    },
+    {
+        image: "Sterne.png",
+        text: "Sie schaut nach oben. Magisch.",
+        choices: [
+            { text: "Du bist schöner als der Himmel.", nextScene: 26 },
+            { text: "Ich wünschte, dieser Moment bleibt.", nextScene: 26 }
+        ]
+    },
+    {
+        image: "Lächelnde-Frau.png",
+        text: "Sie schaut dich ruhig an.",
+        choices: [
+            { text: "Darf ich dich küssen?", nextScene: 27 },
+            { text: "Ich will dich nicht überrumpeln.", nextScene: 28 }
+        ]
+    },
+    {
+        image: "Kuss.png",
+        text: "Ihr küsst euch zärtlich. Ein perfekter Moment.",
+        choices: [
+            { text: "Ende mit einem Kuss", nextScene: 14 }
+        ]
+    },
+    {
+        image: "Verabschiedung.png",
+        text: "Sie umarmt dich sanft. Es war schön heute.",
+        choices: [
+            { text: "Bis bald, Jana", nextScene: 14 }
+        ]
+    },
+    {
+        image: "Leer.png",
+        text: "Du hast Jana sitzen lassen. Vielleicht beim nächsten Mal",
         choices: [
             { text: "Zurück zur Startseite", nextScene: 0 }
         ]
