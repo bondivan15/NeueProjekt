@@ -1,26 +1,21 @@
 html, body {
     margin: 0;
     padding: 0;
-    width: 100%;
     height: 100%;
     font-family: Arial, sans-serif;
     background-color: black;
 }
 
-/* Общий стиль для всех полноэкранных блоков */
-.full-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+.container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
     background-image: url("bilder/Leer.png");
     background-size: cover;
     background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
 }
 
 .start-content {
@@ -61,7 +56,6 @@ html, body {
     background-color: rgba(255, 255, 255, 0.4);
 }
 
-/* Игра */
 #scene-image {
     position: absolute;
     top: 0;
@@ -112,32 +106,37 @@ html, body {
 #choices button:hover {
     background-color: rgba(160, 160, 160, 0.8);
 }
+
+#gift-screen {
+    background-image: url("bilder/Tasche.png");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .gift-content {
-    background-color: rgba(0, 0, 0, 0.7);
-    padding: 30px;
-    border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-}
-
-.gift-content img {
-    width: 200px;
-    height: auto;
-    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border-radius: 20px;
 }
 
 .gift-content button {
-    font-size: 20px;
-    padding: 10px 20px;
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255,255,255,0.2);
     color: white;
+    font-size: 20px;
     border: none;
-    border-radius: 8px;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 10px;
     cursor: pointer;
 }
 
 .gift-content button:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+    background-color: rgba(255,255,255,0.4);
 }

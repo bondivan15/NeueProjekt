@@ -2,26 +2,31 @@
 
 let currentScene = 0;
 let badStreak = 0;
+let giftIndex = 0;
+
+const giftList = [
+    "Geschenk1.png",
+    "Geschenk2.png",
+    "Geschenk3.png",
+    "Geschenk4.png",
+    "Geschenk5.png"
+];
 
 function startGame() {
     document.getElementById("start-screen").style.display = "none";
     document.getElementById("game-container").style.display = "block";
     document.getElementById("missed-screen").style.display = "none";
+    document.getElementById("gift-screen").style.display = "none";
+    currentScene = 0;
+    badStreak = 0;
     updateScene();
 }
 
 function returnToStart() {
-    const startScreen = document.getElementById("start-screen");
-    const gameContainer = document.getElementById("game-container");
-    const missedScreen = document.getElementById("missed-screen");
-
-    startScreen.style.display = "flex";
-    gameContainer.style.display = "none";
-    missedScreen.style.display = "none";
-
-    window.scrollTo(0, 0);
-    startScreen.className = "full-screen";
-
+    document.getElementById("start-screen").style.display = "flex";
+    document.getElementById("game-container").style.display = "none";
+    document.getElementById("missed-screen").style.display = "none";
+    document.getElementById("gift-screen").style.display = "none";
     currentScene = 0;
     badStreak = 0;
 }
@@ -29,37 +34,37 @@ function returnToStart() {
 function choose(choiceIndex) {
     const scene = scenes[currentScene];
     const choice = scene.choices[choiceIndex];
-    const next = choice?.nextScene;
 
-    const isNegative = choice.text.includes("nicht") || choice.text.includes("trotzdem") || choice.text.includes("Zeit") || choice.text.includes("Wasser") || choice.text.includes("anders") || choice.text.includes("verschwende") || choice.text.includes("teilen") || choice.text.includes("Gleichberechtigung");
-    const isPositive = choice.text.includes("freut") || choice.text.includes("lächelt") || choice.text.includes("Geschenk") || choice.text.includes("gern") || choice.text.includes("mag") || choice.text.includes("sehen wir uns wieder") || choice.text.includes("verdient") || choice.text.includes("Danke") || choice.text.includes("Kuss") || choice.text.includes("Umarmung");
-
-    if (choice.text.includes("Geschenk")) {
-        showGiftScreen();
-        return;
-    }
-
-    if (isNegative) {
+    // Обработка негативных реплик
+    if (choice.negative === true) {
         badStreak++;
-    } else if (isPositive && badStreak > 0) {
-        badStreak--;
+    } else {
+        if (badStreak > 0) badStreak--;
     }
 
+    // Если 3 плохих подряд — переход на сцену 49
     if (badStreak >= 3) {
-        currentScene = 6; // сцена, где она уходит
+        currentScene = 49;
         badStreak = 0;
         updateScene();
         return;
     }
 
-    if (next === 29) {
+    // Если сцена подарков
+    if (choice.nextScene === "gift") {
+        openGiftScreen();
+        return;
+    }
+
+    // Если пользователь не пришёл
+    if (choice.nextScene === 50) {
         document.getElementById("game-container").style.display = "none";
         document.getElementById("missed-screen").style.display = "flex";
         return;
     }
 
-    if (next !== undefined) {
-        currentScene = next;
+    if (choice.nextScene !== undefined) {
+        currentScene = choice.nextScene;
         updateScene();
     }
 }
@@ -78,8 +83,7 @@ function updateScene() {
 
     function typeWriter() {
         if (index < scene.text.length) {
-            const char = scene.text.charAt(index);
-            textElement.textContent += char;
+            textElement.textContent += scene.text.charAt(index);
             index++;
             setTimeout(typeWriter, speed);
         } else {
@@ -106,41 +110,47 @@ function updateScene() {
     typeWriter();
 }
 
-// --- Выбор подарка ---
-const gifts = ["gift1.png", "gift2.png", "gift3.png"];
-let currentGift = 0;
+// ================== ПОДАРОЧНЫЙ ЭКРАН ==================
 
-function showGiftScreen() {
+function openGiftScreen() {
     document.getElementById("game-container").style.display = "none";
     document.getElementById("gift-screen").style.display = "flex";
-    updateGiftImage();
+    document.getElementById("gift-image").src = "bilder/" + giftList[giftIndex];
 }
 
-function updateGiftImage() {
-    document.getElementById("gift-image").src = "bilder/" + gifts[currentGift];
+function prevGift() {
+    giftIndex = (giftIndex - 1 + giftList.length) % giftList.length;
+    document.getElementById("gift-image").src = "bilder/" + giftList[giftIndex];
 }
 
-document.getElementById("gift-left").onclick = () => {
-    currentGift = (currentGift + gifts.length - 1) % gifts.length;
-    updateGiftImage();
-};
+function nextGift() {
+    giftIndex = (giftIndex + 1) % giftList.length;
+    document.getElementById("gift-image").src = "bilder/" + giftList[giftIndex];
+}
 
-document.getElementById("gift-right").onclick = () => {
-    currentGift = (currentGift + 1) % gifts.length;
-    updateGiftImage();
-};
-
-document.getElementById("gift-choose").onclick = () => {
+function confirmGift() {
     document.getElementById("gift-screen").style.display = "none";
     document.getElementById("game-container").style.display = "block";
 
-    if (currentGift === 0) {
-        currentScene = 12; // хороший подарок
-    } else if (currentGift === 1) {
-        currentScene = 13; // нейтрально
-    } else {
-        currentScene = 6;  // плохой подарок — уходит
+    switch (giftIndex) {
+        case 0: // Букет роз
+            currentScene = 41;
+            break;
+        case 1: // Шоколадка
+            currentScene = 42;
+            break;
+        case 2: // Ничего
+            currentScene = 43;
+            break;
+        case 3: // Игрушка
+            currentScene = 44;
+            break;
+        case 4: // Кольцо
+            currentScene = 45;
+            break;
+        default:
+            currentScene = 13;
     }
 
     updateScene();
-};
+}

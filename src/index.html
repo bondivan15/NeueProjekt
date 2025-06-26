@@ -7,8 +7,8 @@
 </head>
 <body>
 
-<!-- Стартовий екран -->
-<div id="start-screen" class="full-screen">
+<!-- Стартовый экран -->
+<div id="start-screen" class="container">
     <div class="start-content">
         <h1>Das Date</h1>
         <p>Ein interaktives Abenteuer mit Jana. Triff deine Entscheidungen – aber sei vorsichtig mit deinen Worten.</p>
@@ -16,15 +16,15 @@
     </div>
 </div>
 
-<!-- Основна гра -->
-<div id="game-container" class="full-screen" style="display: none;">
+<!-- Основная игра -->
+<div id="game-container" class="container" style="display: none;">
     <img id="scene-image" src="" alt="Szene">
     <p id="scene-text"></p>
     <div id="choices"></div>
 </div>
 
-<!-- Якщо гравець не прийшов -->
-<div id="missed-screen" class="full-screen" style="display: none;">
+<!-- Экран, если не пришёл -->
+<div id="missed-screen" class="container" style="display: none;">
     <div class="start-content">
         <h1>Du bist nicht gekommen</h1>
         <p>Jana hat lange auf dich gewartet. Vielleicht beim nächsten Mal.</p>
@@ -32,18 +32,19 @@
     </div>
 </div>
 
-<!-- Вибір подарка -->
-<div id="gift-screen" class="full-screen" style="display: none;">
+<!-- Экран выбора подарка -->
+<div id="gift-screen" class="container" style="display: none; background-image: url('bilder/Tasche.png'); background-size: cover; background-position: center;">
     <div class="gift-content">
         <div style="display: flex; align-items: center; gap: 20px;">
-            <button id="gift-left">←</button>
-            <img id="gift-image" src="bilder/gift1.png" alt="Geschenk" />
-            <button id="gift-right">→</button>
+            <button onclick="previousGift()">&#8592;</button>
+            <img id="gift-image" src="" alt="Geschenk" style="width: 300px; height: auto;">
+            <button onclick="nextGift()">&#8594;</button>
         </div>
-        <button id="gift-choose">Geschenk überreichen</button>
+        <button onclick="acceptGift()" style="margin-top: 20px;">Annehmen</button>
     </div>
 </div>
 
+<!-- Подключение JavaScript-файлов (ПОРЯДОК ВАЖЕН) -->
 <script src="scenes.js"></script>
 <script src="engine.js"></script>
 <script src="ui.js"></script>
