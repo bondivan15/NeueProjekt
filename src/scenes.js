@@ -16,7 +16,7 @@ const scenes = [
         choices: [
             { text: "Fragen, wie ihr Tag war", nextScene: 3 },
             { text: "Nichts sagen und den Kellner rufen", nextScene: 11 }
-        ]
+
     },
 
     // Scene 2 - Nicht gekommen
@@ -34,7 +34,7 @@ const scenes = [
         text: "Gut! Sollen wir den Kellner rufen?",
         choices: [
             { text: "Klar, mein Schatz", nextScene: 4 },
-            { text: "Bist du zufällig WLAN? Warum fühle ich dann so eine starke Verbindung?", nextScene: 17 }
+            { text: "Bist du zufällig WLAN?Oder warum fühle ich so eine starke Verbindung zwischen un ?", nextScene: 17 }
         ]
     },
 
