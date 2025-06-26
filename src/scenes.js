@@ -46,7 +46,7 @@ const scenes = [
     },
     {
         id: 6,
-        image: "bilder/Ohne_Frau_mit_Essen_und_Check.png",
+        image: "bilder/FrauMitCHeckpng.png",
         text: "Und hier ist schon die Rechnung!",
         choices: [
             { text: "Ich möchte dich nach Hause bringen", nextScene: 8 },
@@ -55,7 +55,7 @@ const scenes = [
     },
     {
         id: 8,
-        image: "bilder/NachHause.png",
+        image: "bilder/Nacht.png",
         text: "Es war ein wunderschöner Abend! Bringst du mich nach Hause?",
         choices: [
             { text: "Natürlich, Sonnenschein", ending: 2 },
@@ -91,7 +91,7 @@ const scenes = [
     },
     {
         id: 14,
-        image: "bilder/Ohne_Frau_mit_Essen_und_Check.png",
+        image: "bilder/FrauMitCHeckpng.png",
         text: "Und hier ist die Rechnung!",
         choices: [
             { text: "Ich möchte dich nach Hause bringen", nextScene: 8 },
@@ -100,7 +100,7 @@ const scenes = [
     },
     {
         id: 17,
-        image: "bilder/ein-bisschen-böse-Frau-mit-Essen.png",
+        image: "bilder/Wütende Frau im Restaurant.png",
         text: "Hmmmm...",
         choices: [
             { text: "Hat es dir nicht gefallen? Tut mir leid", nextScene: 18 },
@@ -127,7 +127,7 @@ const scenes = [
     },
     {
         id: 20,
-        image: "bilder/Ohne_Frau_mit_Essen_und_Check.png",
+        image: "bilder/FrauMitCHeckpng.png",
         text: "Und die Rechnung kommt!",
         choices: [
             { text: "Ich möchte dich nach Hause bringen", nextScene: 8 },
