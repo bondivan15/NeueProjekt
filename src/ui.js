@@ -1,17 +1,13 @@
-// ui.js
-
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize event listeners
     document.getElementById("start-button").addEventListener("click", startGame);
     document.getElementById("return-button").addEventListener("click", returnToStart);
+    document.getElementById("prev-gift").addEventListener("click", prevGift);
+    document.getElementById("next-gift").addEventListener("click", nextGift);
+    document.getElementById("accept-gift").addEventListener("click", confirmGift);
 
-    // Кнопки управления подарками
-    const leftButton = document.querySelector("#gift-screen button:nth-of-type(1)");
-    const rightButton = document.querySelector("#gift-screen button:nth-of-type(3)");
-    const acceptButton = document.querySelector("#gift-screen button:nth-of-type(4)");
-
-    if (leftButton && rightButton && acceptButton) {
-        leftButton.addEventListener("click", previousGift);
-        rightButton.addEventListener("click", nextGift);
-        acceptButton.addEventListener("click", acceptGift);
+    // Initialize the first scene if needed
+    if (window.location.hash === "#debug") {
+        startGame();
     }
 });

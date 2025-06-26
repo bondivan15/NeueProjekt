@@ -1,107 +1,70 @@
-// engine.js
-
 let currentScene = 0;
 let badStreak = 0;
-let giftIndex = 0;
+let selectedGift = null;
 
-const giftList = [
-    "Geschenk1.png",
-    "Geschenk2.png",
-    "Geschenk3.png",
-    "Geschenk4.png",
-    "Geschenk5.png"
-];
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize event listeners
+    document.getElementById("start-button").addEventListener("click", startGame);
+    document.getElementById("return-button").addEventListener("click", returnToStart);
+    document.getElementById("prev-gift").addEventListener("click", prevGift);
+    document.getElementById("next-gift").addEventListener("click", nextGift);
+    document.getElementById("accept-gift").addEventListener("click", confirmGift);
+});
 
 function startGame() {
+    currentScene = 1; // Start with scene ID 1
+    badStreak = 0;
+    updateScene();
     document.getElementById("start-screen").style.display = "none";
     document.getElementById("game-container").style.display = "block";
     document.getElementById("missed-screen").style.display = "none";
-    document.getElementById("gift-screen").style.display = "none";
-    currentScene = 0;
-    badStreak = 0;
-    updateScene();
 }
 
 function returnToStart() {
     document.getElementById("start-screen").style.display = "flex";
-    document.getElementById("game-container").style.display = "none";
     document.getElementById("missed-screen").style.display = "none";
-    document.getElementById("gift-screen").style.display = "none";
-    currentScene = 0;
-    badStreak = 0;
-}
-
-function choose(choiceIndex) {
-    const scene = scenes[currentScene];
-    const choice = scene.choices[choiceIndex];
-
-    // Обработка негативных реплик
-    if (choice.negative === true) {
-        badStreak++;
-    } else {
-        if (badStreak > 0) badStreak--;
-    }
-
-    // Если 3 плохих подряд — переход на сцену 49
-    if (badStreak >= 3) {
-        currentScene = 49;
-        badStreak = 0;
-        updateScene();
-        return;
-    }
-
-    // Если сцена подарков
-    if (choice.nextScene === "gift") {
-        openGiftScreen();
-        return;
-    }
-
-    // Если пользователь не пришёл
-    if (choice.nextScene === 50) {
-        document.getElementById("game-container").style.display = "none";
-        document.getElementById("missed-screen").style.display = "flex";
-        return;
-    }
-
-    if (choice.nextScene !== undefined) {
-        currentScene = choice.nextScene;
-        updateScene();
-    }
+    document.getElementById("game-container").style.display = "none";
 }
 
 function updateScene() {
-    const scene = scenes[currentScene];
-    const textElement = document.getElementById("scene-text");
+    const scene = scenes.find(s => s.id === currentScene);
+    if (!scene) return;
+
+    const sceneImage = document.getElementById("scene-image");
+    const sceneText = document.getElementById("scene-text");
     const choicesDiv = document.getElementById("choices");
 
-    textElement.textContent = "";
+    // Clear previous content
+    sceneText.textContent = "";
     choicesDiv.innerHTML = "";
-    document.getElementById("scene-image").src = "bilder/" + scene.image;
 
+    // Set scene image
+    sceneImage.src = scene.image || "bilder/Leer.png";
+    sceneImage.style.display = "block";
+
+    // Typewriter effect for text
     let index = 0;
     const speed = 30;
 
     function typeWriter() {
         if (index < scene.text.length) {
-            textElement.textContent += scene.text.charAt(index);
+            sceneText.textContent += scene.text.charAt(index);
             index++;
             setTimeout(typeWriter, speed);
         } else {
+            // Add choices after text is fully displayed
             if (scene.choices && scene.choices.length > 0) {
                 scene.choices.forEach((choice, i) => {
                     const button = document.createElement("button");
-                    button.innerText = choice.text;
-                    button.onclick = () => choose(i);
+                    button.textContent = choice.text;
+                    button.addEventListener("click", () => choose(choice));
                     choicesDiv.appendChild(button);
                 });
             } else {
+                // Default continue button if no choices
                 const button = document.createElement("button");
-                button.innerText = "Neu starten";
-                button.onclick = () => {
-                    currentScene = 0;
-                    badStreak = 0;
-                    updateScene();
-                };
+                button.textContent = "Weiter";
+                button.addEventListener("click", returnToStart);
                 choicesDiv.appendChild(button);
             }
         }
@@ -110,47 +73,91 @@ function updateScene() {
     typeWriter();
 }
 
-// ================== ПОДАРОЧНЫЙ ЭКРАН ==================
+function choose(choice) {
+    if (choice.bad) {
+        badStreak++;
+    } else {
+        badStreak = Math.max(0, badStreak - 1);
+    }
+
+    // Check for bad ending
+    if (badStreak >= 3) {
+        showEnding(4); // Bad behavior ending
+        return;
+    }
+
+    if (choice.ending) {
+        showEnding(choice.ending);
+        return;
+    }
+
+    if (choice.gift) {
+        openGiftScreen();
+        return;
+    }
+
+    if (choice.nextScene) {
+        currentScene = choice.nextScene;
+        updateScene();
+    }
+}
+
+function showEnding(endingId) {
+    const ending = endings[endingId];
+    if (!ending) return;
+
+    document.getElementById("game-container").style.display = "none";
+    document.getElementById("missed-screen").style.display = "flex";
+
+    const endingTitle = document.getElementById("ending-title");
+    const endingText = document.getElementById("ending-text");
+    const endingImage = document.getElementById("scene-image");
+
+    endingTitle.textContent = ending.title;
+    endingText.textContent = ending.text;
+    endingImage.src = ending.image;
+    endingImage.style.display = "block";
+}
+
+// Gift selection functions
+let currentGiftIndex = 0;
 
 function openGiftScreen() {
     document.getElementById("game-container").style.display = "none";
     document.getElementById("gift-screen").style.display = "flex";
-    document.getElementById("gift-image").src = "bilder/" + giftList[giftIndex];
+    updateGiftDisplay();
+}
+
+function updateGiftDisplay() {
+    const gift = gifts[currentGiftIndex];
+    document.getElementById("gift-image").src = gift.image;
+    document.getElementById("gift-name").textContent = gift.name;
 }
 
 function prevGift() {
-    giftIndex = (giftIndex - 1 + giftList.length) % giftList.length;
-    document.getElementById("gift-image").src = "bilder/" + giftList[giftIndex];
+    currentGiftIndex = (currentGiftIndex - 1 + gifts.length) % gifts.length;
+    updateGiftDisplay();
 }
 
 function nextGift() {
-    giftIndex = (giftIndex + 1) % giftList.length;
-    document.getElementById("gift-image").src = "bilder/" + giftList[giftIndex];
+    currentGiftIndex = (currentGiftIndex + 1) % gifts.length;
+    updateGiftDisplay();
 }
 
 function confirmGift() {
+    selectedGift = gifts[currentGiftIndex];
     document.getElementById("gift-screen").style.display = "none";
     document.getElementById("game-container").style.display = "block";
 
-    switch (giftIndex) {
-        case 0: // Букет роз
-            currentScene = 41;
-            break;
-        case 1: // Шоколадка
-            currentScene = 42;
-            break;
-        case 2: // Ничего
-            currentScene = 43;
-            break;
-        case 3: // Игрушка
-            currentScene = 44;
-            break;
-        case 4: // Кольцо
-            currentScene = 45;
-            break;
-        default:
-            currentScene = 13;
+    // Special ending for plush toy (ID 3)
+    if (selectedGift.id === 3) {
+        showEnding(13);
+    } else {
+        // Continue to next scene
+        const scene = scenes.find(s => s.id === currentScene);
+        if (scene && scene.nextScene) {
+            currentScene = scene.nextScene;
+            updateScene();
+        }
     }
-
-    updateScene();
 }

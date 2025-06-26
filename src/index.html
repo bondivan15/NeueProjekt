@@ -6,8 +6,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- Стартовый экран -->
+<!-- Start Screen -->
 <div id="start-screen" class="container">
     <div class="start-content">
         <h1>Das Date</h1>
@@ -16,38 +15,36 @@
     </div>
 </div>
 
-<!-- Основная игра -->
+<!-- Main Game Screen -->
 <div id="game-container" class="container" style="display: none;">
     <img id="scene-image" src="" alt="Szene">
     <p id="scene-text"></p>
     <div id="choices"></div>
 </div>
 
-<!-- Экран, если не пришёл -->
+<!-- Missed Date Screen -->
 <div id="missed-screen" class="container" style="display: none;">
     <div class="start-content">
-        <h1>Du bist nicht gekommen</h1>
-        <p>Jana hat lange auf dich gewartet. Vielleicht beim nächsten Mal.</p>
-        <button id="return-button">Zurück zur Startseite</button>
+        <h1 id="ending-title"></h1>
+        <p id="ending-text"></p>
+        <button id="return-button">Neu starten</button>
     </div>
 </div>
 
-<!-- Экран выбора подарка -->
-<div id="gift-screen" class="container" style="display: none; background-image: url('bilder/Tasche.png'); background-size: cover; background-position: center;">
+<!-- Gift Selection Screen -->
+<div id="gift-screen" class="container" style="display: none;">
     <div class="gift-content">
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <button onclick="previousGift()">&#8592;</button>
-            <img id="gift-image" src="" alt="Geschenk" style="width: 300px; height: auto;">
-            <button onclick="nextGift()">&#8594;</button>
+        <div class="gift-navigation">
+            <button id="prev-gift">&#8592;</button>
+            <img id="gift-image" src="" alt="Geschenk">
+            <p id="gift-name"></p>
+            <button id="next-gift">&#8594;</button>
         </div>
-        <button onclick="acceptGift()" style="margin-top: 20px;">Annehmen</button>
+        <button id="accept-gift">Annehmen</button>
     </div>
 </div>
 
-<!-- Подключение JavaScript-файлов (ПОРЯДОК ВАЖЕН) -->
 <script src="scenes.js"></script>
 <script src="engine.js"></script>
-<script src="ui.js"></script>
-
 </body>
 </html>
