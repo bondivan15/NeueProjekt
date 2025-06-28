@@ -28,15 +28,15 @@ function updateScene() {
     const sceneText = document.getElementById("scene-text");
     const choicesDiv = document.getElementById("choices");
 
-    // Clear previous content
+
     sceneText.textContent = "";
     choicesDiv.innerHTML = "";
 
-    // Set scene image
+
     sceneImage.src = scene.image || "bilder/Leer.png";
     sceneImage.style.display = "block";
 
-    // Typewriter effect for text
+
     let index = 0;
     const speed = 30;
 
@@ -46,7 +46,7 @@ function updateScene() {
             index++;
             setTimeout(typeWriter, speed);
         } else {
-            // Add choices after text is fully displayed
+
             if (scene.choices && scene.choices.length > 0) {
                 scene.choices.forEach((choice) => {
                     const button = document.createElement("button");
@@ -68,7 +68,7 @@ function makeChoice(choice) {
         badStreak = Math.max(0, badStreak - 1);
     }
 
-    // Check for bad ending
+
     if (badStreak >= 3) {
         showEnding(4); // Bad behavior ending
         return;
